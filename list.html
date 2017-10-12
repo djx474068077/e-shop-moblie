@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>商城首页</title>
+  <title>商品详情</title>
  <!-- bootstrap的CSS-->
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- swiper的CSS-->	
@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="swiper/animate.min.css">
     <!--  首页CSS-->
   	<!--<link rel="stylesheet" type="text/css" href="css/reset.css"/>-->
-  	<link rel="stylesheet" type="text/css" href="css/index.css"/>
+  	<link rel="stylesheet" type="text/css" href="css/list.css"/>
 	</head>
 	<body>
 		 <!--内容区-->
@@ -26,7 +26,9 @@
 			 	<div class="search-input">
 			 		<input id="search"  type="text" name="" class="input-1" placeholder="想要的宝贝" />
 			 	</div>
-			 	  <script src="js/animate.js" charset="utf-8"></script>
+			 	
+			 	 <script src="js/animate.js" charset="utf-8"></script>
+			 	 <script src="js/animate.js" charset="utf-8"></script>
 			 	<script type="text/javascript">
 			 		var search=document.querySelector('.search-input');
 						var searchDon=document.querySelector('.search');
@@ -41,16 +43,6 @@
 				      }
 			 	</script>
 			 </nav>
-		<!--swiper动画基础盒子-->
-			<div class="swiper-container">
-			  <div class="swiper-wrapper">		 
-				 <!--轮播图-->
-				<div class="swiper-slide slide1"><a href="#"></a></div>
-			    <div class="swiper-slide slide2"><a href="#"></a></div>
-			    <div class="swiper-slide slide3"><a href="#"></a></div>	
-			 </div> 
-			 <div class="swiper-pagination"></div>
-			</div>
 		<!--热门商品图标-->
 		<ul class="icon">
 			<li  class="glyphicon glyphicon-blackboard li-1 col-xs-2"></li>
@@ -75,35 +67,22 @@
 		    });
 		    </script>
 			
-		<!--mp4插图-->
-		<div class="video-1">
-			<video autoplay muted playsinline loop class="video">
-			<source src="https://www.vipp.com/sites/default/files/provence-house_0.mp4" type="video/mp4"></source>
-			</video>
-			<!--<div class="video">
-				<img src="imgs/pian.jpg"/>
-			</div>-->
-			<div class="top-img-md--content ">
-				<h4>STORY</h4>
-				<h1 class="hero-heading">Behind blue shutters hides a Vipp Kitchen</h1>
-				<a href="#" class=" view-now">Welcome to Provence</a>
-			</div>
-		</div>
+		
 		<!--热门商品-->
 		  <div class="commodity">
 		    <ul id="hot-goods"></ul>
 		    <div class="no">
 		    </div>
 		  </div>
+		
 		  <script>
 		    var cat_id = getQueryString('cat_id');
-				var nO=document.querySelector('.no');
+			var nO=document.querySelector('.no');
 	    var oGoods = document.querySelector('#hot-goods');
 	    myajax.get('http://h6.duchengjiu.top/shop/api_goods.php',
 	    {cat_id: cat_id},
 	    (err,responseText) => {
 	      var json = JSON.parse(responseText);
-	      console.log(json);
 	      var data = json.data;
 	      //判断如果没有数据，则显示空的提示
 	      if (data.length === 0) {
@@ -116,7 +95,7 @@
 			      }
 		      for (var i = 0; i < data.length; i++) {
 		        var obj = data[i];
-		        oGoods.innerHTML += `<li class="remenli">
+		        oGoods.innerHTML += `<li class="remenli ">
 		        <a href="goods.html?goods_id=${obj.goods_id}">
 		          <div class="oimg"><img src="${obj.goods_thumb}" /></div>
 		          <div class="good">${obj.goods_name}</div>
@@ -129,7 +108,7 @@
 		<!--底部图标区-->
 		<div class="foot">
 			<a href="index.html">
-				<div class="glyphicon glyphicon-home foot-1" style="color:rgba(102,204,255,.8) ;">	
+				<div class="glyphicon glyphicon-home foot-1">	
 					<div>主页</div>
 			  </div>
 			</a>
@@ -151,12 +130,11 @@
 					for(var j=0;j<footB.length;j++){
 						footB[j].style.color="white";
 					}
-					this.style.color='rgba(204,255,204,1)';
+					this.style.color='red';
 					console.log(footB);
 				}
 			}
 		</script>
-		
 		<!--首页js-->
 		<script src="js/index.js"></script>	
 		<!--swiper的JS-->
@@ -168,22 +146,6 @@
 		<!--animate-->
 		<script src="js/animate.js"></script>
 		
-		<script type="text/javascript">
-		window.onload = function() {	
-		  	var mySwiper = new Swiper ('.swiper-container', {
-		  		autoplay: 2000,
-		  		simulateTouch : true,
-		  		pagination : '.swiper-pagination',
-		  		loop:true,
-		  		onInit: function(swiper){ //Swiper2.x的初始化是onFirstInit
-			    swiperAnimateCache(swiper); //隐藏动画元素 
-			    swiperAnimate(swiper); //初始化完成开始动画
-			  }, 
-			  onSlideChangeEnd: function(swiper){ 
-			    swiperAnimate(swiper); //每个slide切换结束时也运行当前slide动画
-			  } 		  		
-		  	})		   
-		}
-		</script>
+		
 	</body>
 </html>
