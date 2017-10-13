@@ -4,33 +4,41 @@
 	//if(localStorage.username){
 	$.ajax({
 		type:"get",
-		url:"http://h6.duchengjiu.top/shop/api_cart.php?token="+"3d219b84e8997b7d393bc7ad9af27b39",
+		url:"http://h6.duchengjiu.top/shop/api_cart.php?token="+"b6d6e9682bd35a56967331c3ab6a0836",
 		data:{},
 		success:function(response){
 			var data = response.data;
 			var str = '';
-			for(var i = 0;i<data.length;i++){
+			if(data.length == 0){
 				str += `
-				<li class="cart-good" data-id=${data[i].goods_id} >
-				<input type="checkbox" class="good-check" name="" id="" />
-				<a class="c-g-img">
-					<img src="${data[i].goods_thumb}"/>
-				</a>
-				<div class="c-g-text">
-					<h4>${data[i].goods_name}</h4>
-					<p>商品描述</p>
-					<div class="c-g-price">
-						<div class="prices">
-							￥<span>${data[i].goods_price}</span>
-						</div>
-						<div class="num">
-							<a href="javascript:;" class="min-btn">-</a>
-							<span>${data[i].goods_number}</span>
-							<a href="javascript:;" class="add-btn">+</a>
+				<div class="nothing">
+					<img src="imgs/cart/nothing.png">
+					<p>空空如也,快去首页添加商品吧</p>
+				</div>`
+			}else{
+				for(var i = 0;i<data.length;i++){
+					str += `
+					<li class="cart-good" data-id=${data[i].goods_id} >
+					<input type="checkbox" class="good-check" name="" id="" />
+					<a class="c-g-img">
+						<img src="${data[i].goods_thumb}"/>
+					</a>
+					<div class="c-g-text">
+						<h4>${data[i].goods_name}</h4>
+						<span class="delate">删除</span>					
+						<div class="c-g-price">
+							<div class="prices">
+								￥<span>${data[i].goods_price}</span>
+							</div>
+							<div class="num">
+								<a href="javascript:;" class="min-btn">-</a>
+								<span>${data[i].goods_number}</span>
+								<a href="javascript:;" class="add-btn">+</a>
+							</div>
 						</div>
 					</div>
-				</div>
-			</li>`
+				</li>`
+				}
 			}
 			$("#cart-goods").html(str);
 			showSum();
@@ -63,7 +71,7 @@
 			});
 		}
 	});
-	$.get("http://h6.duchengjiu.top/shop/api_useraddress.php?token=3d219b84e8997b7d393bc7ad9af27b39",{},function(response){
+	$.get("http://h6.duchengjiu.top/shop/api_useraddress.php?token=b6d6e9682bd35a56967331c3ab6a0836",{},function(response){
 		var data = response.data;
 		var str = '';
 		for(var i = 0;i<data.length;i++){
@@ -171,13 +179,14 @@ $("#enbalance").on("touchstart",function(){
 	
 	$.ajax({
 		type:"post",
-		url:"http://h6.duchengjiu.top/shop/api_order.php?token=3d219b84e8997b7d393bc7ad9af27b39&status=add&debug=1",
+		url:"http://h6.duchengjiu.top/shop/api_order.php?token=b6d6e9682bd35a56967331c3ab6a0836&status=add&debug=1",
 		data:{
 			address_id:address_id,
 			total_prices:$("#entotal").text(),
 		},
 		success:function(response){
 			alert(response.message);
+			location.reload(true);
 		}
 	});
 });

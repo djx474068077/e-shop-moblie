@@ -8,10 +8,24 @@ a{
 html,body{
 	background: white;
 	width: 100%;
-	font-size: 15px;
+	/*font-size: 15px;*/
 	height: auto;
 }
-
+@media screen and (min-width: 375px) {
+	html{
+		font-size: 15px;
+	}
+}
+@media screen and (min-width: 321px) {
+	html{
+		font-size: 14px;
+	}
+}
+@media screen and (max-width: 321px) {
+	html{
+		font-size: 13px;
+	}
+}
 .swiper-container {
     width:100%;
     position: absolute;  
