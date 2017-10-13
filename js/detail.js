@@ -166,7 +166,9 @@ jiarugwc.addEventListener("touchstart",function(){
 		return;
 	}
     if(!localStorage.username){
-    	alert("请登录")
+    	alert("请登录");
+    	localStorage.backurl = location.href;
+    	location.href = "login.html";
     	return;
     }
     var num=parseInt(document.querySelector("#xqnumber").innerHTML);
@@ -175,7 +177,7 @@ jiarugwc.addEventListener("touchstart",function(){
     	type:"post",
     	url:"http://h6.duchengjiu.top/shop/api_cart.php?token="+localStorage.token,
     	data:{
-    		goods_id:232124,
+    		goods_id:goods_id,
     		number:num
     	},
     	success:function(jsondata){

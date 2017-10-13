@@ -142,15 +142,15 @@ html,body{
 
 .commodity {
     margin-bottom: 3.5rem;
-    padding-top: 8.5rem;
+    padding-top: 5.5rem;
 }
 .commodity ul li{
 	list-style: none;
 	margin: .4rem;
 	float: left;
 	border: 1px solid #CDCDCD;
-	background: url(../imgs/pian.jpg);
-	/*background-size: 100% ;*/
+	background: url(../imgs/n.png);
+	background-size: 100% ;
 	width: 97%;
 }
 
@@ -173,7 +173,7 @@ html,body{
 	overflow: hidden; 
     margin:4%;
     padding-left: 1rem;
-    color: rgba(69,68,64,.8);
+   color: rgb(254,176,94);
 }
 
 .remenli .price{

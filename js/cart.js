@@ -1,10 +1,10 @@
 
 	//判断是否登录
 	
-	//if(localStorage.username){
+	if(localStorage.username){
 	$.ajax({
 		type:"get",
-		url:"http://h6.duchengjiu.top/shop/api_cart.php?token="+"b6d6e9682bd35a56967331c3ab6a0836",
+		url:"http://h6.duchengjiu.top/shop/api_cart.php?token="+localStorage.token,
 		data:{},
 		success:function(response){
 			var data = response.data;
@@ -69,9 +69,15 @@
 			      }
 				showSum();
 			});
+			//删除键事件
+			$('.delate').on('touchstart',function(){
+				if(confirm("确定要删除该购物车商品？")){
+					alert("杜老师没写删除购物车商品的API！发红包！");
+				}
+			});
 		}
 	});
-	$.get("http://h6.duchengjiu.top/shop/api_useraddress.php?token=b6d6e9682bd35a56967331c3ab6a0836",{},function(response){
+	$.get("http://h6.duchengjiu.top/shop/api_useraddress.php?token="+localStorage.token,{},function(response){
 		var data = response.data;
 		var str = '';
 		for(var i = 0;i<data.length;i++){
@@ -88,10 +94,11 @@
 			$(this).addClass('active').siblings().removeClass('active');
 		});
 	});
-	//}else{
-	//	alert("请先登录");
-	//	location.href = "login.html";
-	//}
+	}else{
+		alert("请先登录");
+		localStorage.backurl = location.href;
+		location.href = "login.html";
+	}
 
 //更新数量
 function updataNum(obj,num){
@@ -179,7 +186,7 @@ $("#enbalance").on("touchstart",function(){
 	
 	$.ajax({
 		type:"post",
-		url:"http://h6.duchengjiu.top/shop/api_order.php?token=b6d6e9682bd35a56967331c3ab6a0836&status=add&debug=1",
+		url:"http://h6.duchengjiu.top/shop/api_order.php?token="+localStorage.token+"&status=add&debug=1",
 		data:{
 			address_id:address_id,
 			total_prices:$("#entotal").text(),

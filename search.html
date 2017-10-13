@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="swiper/animate.min.css">
     <!--  首页CSS-->
   	<!--<link rel="stylesheet" type="text/css" href="css/reset.css"/>-->
-  	<link rel="stylesheet" type="text/css" href="css/list.css"/>
+  	<link rel="stylesheet" type="text/css" href="css/search.css"/>
 	</head>
 	<body>
 		 <!--内容区-->
@@ -33,18 +33,53 @@
 			 	<script type="text/javascript">
 			 		var search=document.querySelector('.search-input');
 						var searchDon=document.querySelector('.search');
+						var clickCount = 0;
 						searchDon.onclick=function(){
-							animate(search, {"top": 0}, 300, "BackEaseIn");
+							animate(search, {"top": 0}, 300, "BackEaseIn");	
+							if (clickCount <1) {
+						        clickCount++;
+						        //append data
+						   } else if (clickCount!=0&&oSearch.value!==""){
+				           location.href = 'search.html?search_text='+oSearch.value;
+						    }else if (oSearch.value=="") {
+						    	alert("请输入搜索内容哦~");
+						    }
+						    
 						}	
 						var oSearch = document.querySelector("#search");
 				      oSearch.onkeyup = function(event) {
 				        if (event.keyCode === 13) {
-				          location.href = 'search.html?search_text='+this.value;
+				        		location.href = 'search.html?search_text='+this.value;		          
 				        }
 				      }
 			 	</script>
 			 </nav>
-		
+		<!--热门商品-->
+		<div id="main-nav">
+		<!--热门商品图标-->
+		<ul class="icon">
+			<li  class="glyphicon glyphicon-blackboard li-1 "></li>
+			<li  class="glyphicon glyphicon-lamp li-2 "></li>
+			<li  class="glyphicon glyphicon-erase li-3 "></li>
+			<li  class="glyphicon glyphicon-phone li-4 "></li>
+			<li  class="glyphicon glyphicon-grain li-5"></li>
+			<li  class="glyphicon glyphicon-cutlery li-6 "></li>
+		</ul>
+		<!--热门商品列表-->
+		<ul id="cat" class="cat"></ul>
+		<script src="js/myajax.js" charset="utf-8"></script>
+		    <script>
+		    var oCat = document.querySelector('#cat');
+		    myajax.get('http://h6.duchengjiu.top/shop/api_cat.php', {}, function(error, responseText){
+		        var json = JSON.parse(responseText);//返回的整个json对象
+		        var data = json.data;//json对象当中的data是一个数组
+		        for (var i = 0; i < data.length-4; i++) {
+		          var obj = data[i];//数组里面的每一项是一个商品分类的对象
+		          oCat.innerHTML += `<a href="list.html?cat_id=${obj.cat_id}"><li class="cat-li">${obj.cat_name}</li></a>`;
+		        }
+		    });
+		    </script>	
+		    </div>
 		<!--热门商品-->
 		  <div class="commodity" style="margin-top: 3.5rem;">
 		    <ul id="hot-goods"></ul>
@@ -68,7 +103,7 @@
 			      var data = json.data;
 			      //如果没数据要给出提示
 			      if (data.length === 0) {
-			        oGoods.innerHTML = "对不起没有找到您需要的宝贝, <span id='second'>3</span>秒后跳回首页";
+			        oGoods.innerHTML = "对不起没有找到您需要的宝贝, <span id='second'>4</span>秒后跳回首页";
 			        oGoods.style.padding=2+'rem'
 			        imag.style.marginTop=2+'rem';
 			        imag.style.width=25+'rem';
@@ -85,7 +120,7 @@
 			        setTimeout(() => {
 			          clearInterval(timer);
 			          location.href = 'index.html';
-			        }, 3000);
+			        }, 4000);
 			        return;
 			      }else{			      	
 							setInterval(function(){
@@ -107,17 +142,17 @@
 		<!--底部图标区-->
 		<div class="foot">
 			<a href="index.html">
-				<div class="glyphicon glyphicon-home foot-1">	
+				<div class="glyphicon glyphicon-home foot-1 col-xs-4">	
 					<div>主页</div>
 			  </div>
 			</a>
 			<a href="cart.html">
-				<div class="glyphicon glyphicon-gift foot-1">
+				<div class="glyphicon glyphicon-gift foot-1 col-xs-4">
 					<div>购物包</div>
 			  </div>
 			</a>
 			<a href="user.html">
-				<div class="glyphicon glyphicon-user foot-1">
+				<div class="glyphicon glyphicon-user foot-1 col-xs-4">
 					<div>我的</div>
 			  </div>
 			</a>

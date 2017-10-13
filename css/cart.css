@@ -10,6 +10,7 @@ body{
 	color: #444444;
 	top: 0;
 	z-index: 10;
+
 	border-bottom: 1px solid rgb(180,180,180);
 }
 .cart-header span.toback{
@@ -29,7 +30,6 @@ body{
 	width: 100%;
 	margin-top: 50px;
 	padding-bottom: 150px;
-	
 }
 .cart-main .nothing{
 	position: absolute;
@@ -87,8 +87,6 @@ body{
 	float: right;
 }
 .c-g-text h4{
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
 	width: 90%;
 	height: 3.5rem;
 	font-size: 1rem;
@@ -103,6 +101,7 @@ body{
 	right: 0.5rem;
 	top: 0.3rem;
 	color: red;
+	line-height: 1.6rem;
 }
 .c-g-text p{
 	color: #666666;
@@ -269,4 +268,20 @@ body{
 	line-height: 60px;
 	font-size: 1.2rem;
 	text-decoration: none;
+}
+
+.foot{
+	width: 100%;
+	background: rgba(205,205,205,1);
+	position: fixed;
+	bottom: 0;
+	height: 3rem;
+	border-top: 1px solid #CDCDCD;
+}
+
+.foot-1{
+	margin-top: .5rem;
+	text-align: center;
+	font-size: 1rem;
+	color: white;
 }

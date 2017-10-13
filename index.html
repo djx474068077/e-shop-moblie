@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>商城首页</title>
+  <title>免费商城</title>
  <!-- bootstrap的CSS-->
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!-- swiper的CSS-->	
@@ -19,7 +19,7 @@
 			  
 			  <!--头部包括搜索框-->
 			 <nav class="navbar">
-			 	<h5 class="logo">TXZVIP</h5>
+			 	<h5 class="logo">FREE</h5>
 			 	<div class="search">
 			 		<img src="imgs/sech.png"/>
 			 	</div>
@@ -28,15 +28,25 @@
 			 	</div>
 			 	  <script src="js/animate.js" charset="utf-8"></script>
 			 	<script type="text/javascript">
-			 		var search=document.querySelector('.search-input');
+			 	  	var search=document.querySelector('.search-input');
 						var searchDon=document.querySelector('.search');
+						var clickCount = 0;
 						searchDon.onclick=function(){
-							animate(search, {"top": 0}, 300, "BackEaseIn");
+							animate(search, {"top": 0}, 300, "BackEaseIn");	
+							if (clickCount <1) {
+						        clickCount++;
+						        //append data
+						   } else if (clickCount!=0&&oSearch.value!==""){
+				           location.href = 'search.html?search_text='+oSearch.value;
+						    }else if (oSearch.value=="") {
+						    	alert("请输入搜索内容哦~");
+						    }
+						    
 						}	
 						var oSearch = document.querySelector("#search");
 				      oSearch.onkeyup = function(event) {
 				        if (event.keyCode === 13) {
-				          location.href = 'search.html?search_text='+this.value;
+				        		location.href = 'search.html?search_text='+this.value;		          
 				        }
 				      }
 			 	</script>
@@ -51,14 +61,17 @@
 			 </div> 
 			 <div class="swiper-pagination"></div>
 			</div>
+			
+		<!--热门商品-->
+		<div id="main-nav">
 		<!--热门商品图标-->
 		<ul class="icon">
-			<li  class="glyphicon glyphicon-blackboard li-1 col-xs-2"></li>
-			<li  class="glyphicon glyphicon-lamp li-2 col-xs-2"></li>
-			<li  class="glyphicon glyphicon-erase li-3 col-xs-2"></li>
-			<li  class="glyphicon glyphicon-phone li-4 col-xs-2"></li>
-			<li  class="glyphicon glyphicon-grain li-5 col-xs-2"></li>
-			<li  class="glyphicon glyphicon-cutlery li-6 col-xs-2"></li>
+			<li  class="glyphicon glyphicon-blackboard li-1 "></li>
+			<li  class="glyphicon glyphicon-lamp li-2 "></li>
+			<li  class="glyphicon glyphicon-erase li-3 "></li>
+			<li  class="glyphicon glyphicon-phone li-4 "></li>
+			<li  class="glyphicon glyphicon-grain li-5 "></li>
+			<li  class="glyphicon glyphicon-cutlery li-6 "></li>
 		</ul>
 		<!--热门商品列表-->
 		<ul id="cat" class="cat"></ul>
@@ -70,27 +83,55 @@
 		        var data = json.data;//json对象当中的data是一个数组
 		        for (var i = 0; i < data.length-4; i++) {
 		          var obj = data[i];//数组里面的每一项是一个商品分类的对象
-		          oCat.innerHTML += `<a href="list.html?cat_id=${obj.cat_id}"><li class="col-xs-2">${obj.cat_name}</li></a>`;
+		          oCat.innerHTML += `<a href="list.html?cat_id=${obj.cat_id}"><li class="cat-li">${obj.cat_name}</li></a>`;
 		        }
 		    });
 		    </script>
-			
+		</div>	
 		<!--mp4插图-->
 		<div class="video-1">
-			<video autoplay muted playsinline loop class="video">
+			<!--<video autoplay muted playsinline loop class="video">
 			<source src="https://www.vipp.com/sites/default/files/provence-house_0.mp4" type="video/mp4"></source>
-			</video>
-			<!--<div class="video">
-				<img src="imgs/pian.jpg"/>
-			</div>-->
+			</video>-->
+			<div class="video" id="imagesList">
+				<!--<div class="swiper-slide">-->
+				<img src="imgs/21.jpg" 
+				<!--	swiper-animate-effect="fadeIn" swiper-animate-duration="0.5s" swiper-animate-delay="0.3s"-->
+					/>
+				</div>	
+		<!--	</div>-->		
 			<div class="top-img-md--content ">
 				<h4>STORY</h4>
 				<h1 class="hero-heading">Behind blue shutters hides a Vipp Kitchen</h1>
 				<a href="#" class=" view-now">Welcome to Provence</a>
 			</div>
 		</div>
+		<!--插图淡出淡入（不想做了）-->
+		<!--<script>
+			var index = 0;
+			var timer;
+			var oImagesLists=document.getElementById('imagesList').getElementsByTagName('img');
+			
+			var timer=setInterval(function(){
+    	index++;
+      if (index >= oImagesLists.length) {
+        index = 0;
+      }
+      move();
+    },500);
+    
+    function move() {
+      for (var i = 0; i < oImagesLists.length; i++) {
+        oImagesLists[i].className = '';
+      }
+      oImagesLists[index].className = 'ani';
+    }
+		</script>-->
 		<!--热门商品-->
 		  <div class="commodity">
+		  	<div style="text-align: center;font-weight: 600;">
+		  		HOT ITEMS
+		  	</div>
 		    <ul id="hot-goods"></ul>
 		    <div class="no">
 		    </div>
@@ -117,7 +158,7 @@
 		      for (var i = 0; i < data.length; i++) {
 		        var obj = data[i];
 		        oGoods.innerHTML += `<li class="remenli">
-		        <a href="goods.html?goods_id=${obj.goods_id}">
+		        <a href="detail.html?goods_id=${obj.goods_id}">
 		          <div class="oimg"><img src="${obj.goods_thumb}" /></div>
 		          <div class="good">${obj.goods_name}</div>
 		          <div class="price">$ ${obj.price}</div>
@@ -129,17 +170,17 @@
 		<!--底部图标区-->
 		<div class="foot">
 			<a href="index.html">
-				<div class="glyphicon glyphicon-home foot-1" style="color:rgba(102,204,255,.8) ;">	
+				<div class="glyphicon glyphicon-home foot-1 col-xs-4" style="color:rgba(102,204,255,.8) ;">	
 					<div>主页</div>
 			  </div>
 			</a>
 			<a href="cart.html">
-				<div class="glyphicon glyphicon-gift foot-1">
+				<div class="glyphicon glyphicon-gift foot-1 col-xs-4">
 					<div>购物包</div>
 			  </div>
 			</a>
 			<a href="user.html">
-				<div class="glyphicon glyphicon-user foot-1">
+				<div class="glyphicon glyphicon-user foot-1 col-xs-4">
 					<div>我的</div>
 			  </div>
 			</a>
@@ -158,6 +199,7 @@
 		</script>
 		
 		<!--首页js-->
+		<script src="js/onTop.js"></script>
 		<script src="js/index.js"></script>	
 		<!--swiper的JS-->
 		<script src="swiper/swiper-3.4.2.min.js"></script>
@@ -167,7 +209,7 @@
 		<script src="bootstrap/js/bootstrap.min.js"></script>
 		<!--animate-->
 		<script src="js/animate.js"></script>
-		
+			
 		<script type="text/javascript">
 		window.onload = function() {	
 		  	var mySwiper = new Swiper ('.swiper-container', {
