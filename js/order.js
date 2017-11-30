@@ -22,7 +22,7 @@ $.ajax({
 				<div class="order" data-order-id=${data[i].order_id}>
 					<div class="order-head">
 						<span>
-							优才创智旗舰店
+							品诺旗舰店
 						</span>
 						<span class="delate glyphicon glyphicon-trash"></span>
 					</div>
@@ -59,7 +59,7 @@ $.ajax({
 		$('.order-main').html(str);
 		$('.delate').on('touchstart',function(){
 			if(confirm("确定删除该订单？")){
-				alert('杜老师没有写删除订单的api，发红包！');
+				alert('删除订单api未完成，删除失败');
 			}
 		});
 	}

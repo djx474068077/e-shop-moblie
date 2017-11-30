@@ -239,6 +239,7 @@ body{
 }
 .c-m-main{
 	overflow-y: auto;
+	padding-bottom: 5rem;
 }
 .c-m-main li{
 	width: 100%;

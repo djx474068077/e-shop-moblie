@@ -69,10 +69,12 @@
 			      }
 				showSum();
 			});
+			
+			
 			//删除键事件
 			$('.delate').on('touchstart',function(){
 				if(confirm("确定要删除该购物车商品？")){
-					alert("杜老师没写删除购物车商品的API！发红包！");
+					alert("删除失败，删除api未完成");
 				}
 			});
 		}
@@ -176,24 +178,35 @@ $("#enbalance").on("touchstart",function(){
 	var address_id;
 	var $address = $("#c-m-main").children("li");
 	console.log($address);
+	var isaddress = 0;//是否选择地址信号量
 	for(var i=0;i<$address.length;i++){
 		console.log($address[i]);
 		if($($address[i]).hasClass("active")){
 			address_id = $($address[i]).data("id");
 			console.log(address_id);
+			isaddress = 1;
 		}
 	}
+	if(isaddress === 0){
+		alert("请先选择收货地址再结算");
+	}else{
+		$.ajax({
+			type:"post",
+			url:"http://h6.duchengjiu.top/shop/api_order.php?token="+localStorage.token+"&status=add&debug=1",
+			data:{
+				address_id:address_id,
+				total_prices:$("#entotal").text(),
+			},
+			success:function(response){
+				alert(response.message);
+				location.reload(true);
+			}
+		});
+	}
 	
-	$.ajax({
-		type:"post",
-		url:"http://h6.duchengjiu.top/shop/api_order.php?token="+localStorage.token+"&status=add&debug=1",
-		data:{
-			address_id:address_id,
-			total_prices:$("#entotal").text(),
-		},
-		success:function(response){
-			alert(response.message);
-			location.reload(true);
-		}
-	});
+});
+
+//点击新增地址
+$('.add-address').on('touchstart',function(){
+	location.href = "address.html";
 });
